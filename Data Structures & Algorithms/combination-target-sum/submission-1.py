@@ -1,0 +1,26 @@
+class Solution:
+    def combinationSum(self, nums: List[int], target: int) -> List[List[int]]:
+        result = []
+        path = []
+
+
+        def backtrack(index, remaining):
+            "index is when we dont care about order, set is when we care about the order "
+            if remaining < 0:
+                return 
+            if remaining == 0:
+                result.append(path[:])
+                return
+
+            for i in range(index, len(nums)):
+                if i > index and nums[i] == nums[i-1]:
+                    continue
+                
+                path.append(nums[i])
+                backtrack(i, remaining - nums[i])
+                path.pop()
+        
+        backtrack(0, target)
+        return result
+
+        
